@@ -7,5 +7,5 @@ import (
 )
 
 type Notification interface {
-	Send(ctx context.Context, body model.Mail) (data interface{}, err error)
+	SendEmail(ctx context.Context, to []string, subject string, message string, attachments []model.Attachments) (data interface{}, err error)
 }
