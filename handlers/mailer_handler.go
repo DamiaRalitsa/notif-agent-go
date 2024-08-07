@@ -1,12 +1,10 @@
 package handlers
 
 import (
-	"bytes"
 	"context"
 	"io/ioutil"
 	"mime"
 	"path/filepath"
-	"text/template"
 
 	"gitlab.playcourt.id/notif-agent-go/notification/mailer/model"
 	"gitlab.playcourt.id/notif-agent-go/notification/mailer/service"
@@ -22,28 +20,7 @@ func NewMailerHandler(notificationService service.Notification) *MailerHandler {
 	}
 }
 
-func (h *MailerHandler) SendEmailWithAttachments(ctx context.Context, to []string, subject string, emailTemplate string, templateData interface{}, filePaths []string) (data interface{}, err error) {
-	// Read the HTML template file
-	htmlTemplate, err := ioutil.ReadFile(emailTemplate)
-	if err != nil {
-		return nil, err
-	}
-
-	// Parse the HTML template
-	tmpl, err := template.New("emailTemplate").Parse(string(htmlTemplate))
-	if err != nil {
-		return nil, err
-	}
-
-	// Execute the template with the provided data
-	var tpl bytes.Buffer
-	if err := tmpl.Execute(&tpl, templateData); err != nil {
-		return nil, err
-	}
-
-	// Set the resulting string as the message content
-	message := tpl.String()
-
+func (h *MailerHandler) SendEmailWithAttachments(ctx context.Context, to []string, subject string, message string, filePaths []string) (data interface{}, err error) {
 	attachments := make([]model.Attachments, 0)
 
 	for _, filePath := range filePaths {
