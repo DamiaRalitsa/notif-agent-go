@@ -25,7 +25,7 @@ type gateway struct {
 	HttpClient *helpers.ToolsAPI
 }
 
-func (d gateway) SendEmail(ctx context.Context, to []string, subject string, message string, attachments []model.Attachments) (data interface{}, err error) {
+func (d gateway) SendEmail(ctx context.Context, mail model.Mail) (data interface{}, err error) {
 	from := d.Username
 	password := d.Password
 	smtpHost := d.Host
@@ -33,8 +33,8 @@ func (d gateway) SendEmail(ctx context.Context, to []string, subject string, mes
 
 	headers := make(map[string]string)
 	headers["From"] = from
-	headers["To"] = strings.Join(to, ",")
-	headers["Subject"] = subject
+	headers["To"] = strings.Join(mail.To, ",")
+	headers["Subject"] = mail.Subject
 	headers["MIME-Version"] = "1.0"
 	headers["Content-Type"] = `multipart/mixed; boundary="MULTIPART_BOUNDARY"`
 
@@ -47,11 +47,11 @@ func (d gateway) SendEmail(ctx context.Context, to []string, subject string, mes
 		`Content-Type: text/html; charset="UTF-8"` + "\r\n" +
 		"Content-Transfer-Encoding: 7bit\r\n" +
 		"\r\n" +
-		message +
+		mail.Message +
 		"\r\n"
 
 	newAttachments := ""
-	for _, attachment := range attachments {
+	for _, attachment := range mail.Attachments {
 		newAttachments += "--MULTIPART_BOUNDARY\r\n" +
 			`Content-Type: application/octet-stream` + "\r\n" +
 			`Content-Transfer-Encoding: base64` + "\r\n" +
@@ -64,7 +64,7 @@ func (d gateway) SendEmail(ctx context.Context, to []string, subject string, mes
 	newMessage := []byte(header + "\r\n" + bodyHeader + newAttachments + "--MULTIPART_BOUNDARY--")
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
-	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, newMessage)
+	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, from, mail.To, newMessage)
 
 	if err != nil {
 		fmt.Println(err)
