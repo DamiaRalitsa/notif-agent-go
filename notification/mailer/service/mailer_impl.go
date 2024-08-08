@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"gitlab.playcourt.id/notif-agent-go/helpers"
-	"gitlab.playcourt.id/notif-agent-go/notification/mailer/model"
+	"github.com/DamiaRalitsa/notif-agent-go/helpers"
+	"github.com/DamiaRalitsa/notif-agent-go/notification/mailer/model"
 )
 
 type SmtpClient interface {

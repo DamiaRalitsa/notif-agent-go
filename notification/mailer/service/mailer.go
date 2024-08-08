@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"gitlab.playcourt.id/notif-agent-go/notification/mailer/model"
+	"github.com/DamiaRalitsa/notif-agent-go/notification/mailer/model"
 )
 
 type Notification interface {

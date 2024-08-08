@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"gitlab.playcourt.id/notif-agent-go/config"
+	"github.com/DamiaRalitsa/notif-agent-go/config"
 
 	log "github.com/sirupsen/logrus"
 )

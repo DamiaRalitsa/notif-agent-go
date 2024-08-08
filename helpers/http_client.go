@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gitlab.playcourt.id/notif-agent-go/log"
+	"github.com/DamiaRalitsa/notif-agent-go/log"
 	httptrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/net/http"
 )
 

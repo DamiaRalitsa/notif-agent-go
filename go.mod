@@ -1,4 +1,4 @@
-module gitlab.playcourt.id/notif-agent-go
+module github.com/DamiaRalitsa/notif-agent-go
 
 go 1.22.5
 

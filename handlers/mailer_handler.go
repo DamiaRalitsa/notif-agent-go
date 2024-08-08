@@ -6,8 +6,8 @@ import (
 	"mime"
 	"path/filepath"
 
-	"gitlab.playcourt.id/notif-agent-go/notification/mailer/model"
-	"gitlab.playcourt.id/notif-agent-go/notification/mailer/service"
+	"github.com/DamiaRalitsa/notif-agent-go/notification/mailer/model"
+	"github.com/DamiaRalitsa/notif-agent-go/notification/mailer/service"
 )
 
 type MailerHandler struct {
